@@ -1,0 +1,27 @@
+@import './../../../styles.less';
+
+.navigation {
+    &__list {
+        list-style-type: none;
+        padding: 0;
+        color: @linkColor;
+
+        &__item {
+            display: inline-block;
+            margin-right: 10px;
+            padding: 5px;
+            cursor: pointer;
+            border: 1px solid transparent;
+
+            &:hover {
+                color: @addColor;
+                border: 1px solid @linkColor;
+                border-radius: 4px 4px 0 0;
+            }
+              
+            &.selected {
+                border-bottom: 1px solid @linkColor;
+            }
+        }
+    }
+}

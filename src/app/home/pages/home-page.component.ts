@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HomePageService } from '../services';
+import { NavigationService } from 'app/navigation/services/navigation.service';
 
 
 @Component({
@@ -7,5 +8,11 @@ import { HomePageService } from '../services';
     templateUrl: './home-page.component.html',
     providers: [HomePageService]
 })
-export class HomePageComponent {
+export class HomePageComponent implements OnInit {
+
+    constructor(private navigationService: NavigationService) {}
+
+    ngOnInit(): void {
+        this.navigationService.selectNav('home');
+    }
 }
