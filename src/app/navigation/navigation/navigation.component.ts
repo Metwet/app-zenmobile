@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../services/navigation.service';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
-import { filter } from 'rxjs';
-import { even } from '@rxweb/reactive-form-validators';
+import { Router } from '@angular/router';
+import { AuthService } from 'core/services';
 
 @Component({
   selector: 'app-navigation',
@@ -12,13 +11,22 @@ import { even } from '@rxweb/reactive-form-validators';
 export class NavigationComponent implements OnInit {
 
   selectedPage: string = '';
+  showNavigation!: boolean;
 
-  constructor(private navigationService: NavigationService, private router: Router) { }
+  constructor(private navigationService: NavigationService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.navigationService.selectedNav$.subscribe(page=>{
       this.selectedPage = page;
     });
+
+    this.authService.userId$.subscribe(()=>{
+      if(this.authService.isAuthenticated()){
+        this.showNavigation = true;
+      } else {
+        this.showNavigation = false;      
+      }
+    })
   }
 
   selectPage(page: string){

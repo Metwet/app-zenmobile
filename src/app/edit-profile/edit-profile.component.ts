@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationService } from 'app/navigation/services/navigation.service';
+import { AuthService } from 'core/services';
 import { ProfileService } from 'shared';
 import { User } from 'shared/models/user.model';
 
@@ -12,7 +13,7 @@ import { User } from 'shared/models/user.model';
 export class EditProfileComponent implements OnInit {
 
   profileForm!: FormGroup;
-  currentUserId: number = 1;
+  currentUserId!: number | null;
 
   showEditor: boolean = false;
   showFirstNameError: boolean = true;
@@ -23,7 +24,8 @@ export class EditProfileComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
-    private navigationService: NavigationService
+    private navigationService: NavigationService,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -34,25 +36,28 @@ export class EditProfileComponent implements OnInit {
       phone: ['', [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(10), Validators.maxLength(10)]],
       siteUrl: ['', [Validators.pattern(/^https?:\/\/.+/i)]]
     })
+    
+    this.currentUserId = this.authService.getStoredUserId();
     this._loadProfile();
 
     this.navigationService.selectNav('profile');
   }
 
   private _loadProfile(): void {
-    this.profileService.getUserById(this.currentUserId).subscribe((user: User) => {
-      if (user) {
-        this.profileForm.patchValue({
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          phone: user.phone,
-          siteUrl: user.siteUrl
-        });
-        this.showEditor = true;
-      }
-    });
-    
+    if(this.currentUserId){
+      this.profileService.getUserById(this.currentUserId).subscribe((user: User) => {
+        if (user) {
+          this.profileForm.patchValue({
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            phone: user.phone,
+            siteUrl: user.siteUrl
+          });
+          this.showEditor = true;
+        }
+      });
+    }      
   }
 
   onSubmit(): void {

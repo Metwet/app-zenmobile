@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header" *ngIf="currentUserId">
     <div class="container header__container">
         <div class="header__title">
             Test iConText
@@ -7,7 +7,7 @@
             {{message}}
         </div>
         <div class="header__info">
-            <div class="header__user" *ngIf="currentUser" routerLink="/editprofile">
+            <div class="header__user" *ngIf="currentUserId && currentUser" routerLink="/editprofile">
                 <div class="header__img">
                     <img src="./../../assets/imgs/user-id-svgrepo-com.svg" alt="logout__img">
                 </div>
@@ -15,7 +15,7 @@
                     Current user: {{currentUser.firstName}} {{currentUser.lastName}}
                 </div>
             </div>
-            <div class="header__logout" routerLink="/login">
+            <div class="header__logout" (click)="logout()">
                 <div class="header__logout__text">
                     Logout
                 </div>

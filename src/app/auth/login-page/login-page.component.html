@@ -1,0 +1,21 @@
+<div class="login-page container">
+    <h2>Login</h2>
+    <form class="login-page__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="login-page__row">
+            <label for="email" class="login-page__lable">Email:</label>
+            <input type="text" id="email" formControlName="email" placeholder="user@mail.ru">
+        </div>
+        <div class="login-page__row">
+            <label for="password" class="login-page__lable">Password:</label>
+            <input type="password" id="password" formControlName="password">
+        </div>
+        <div class="login-page__row">
+            <button type="submit" [disabled]="!loginForm.valid">Login</button>
+        </div>
+        <div *ngIf="errorText" class="login-page__error">
+            Error: {{errorText}} <br>
+            Use: user@mail.ru / user2@mail.ru and 123
+        </div>
+    </form>
+</div>
+

@@ -1,4 +1,4 @@
-<div class="navigation container">
+<div class="navigation container" *ngIf="showNavigation">
     <ul class="navigation__list">
         <li [class.selected]="isSelected('home')" (click)="selectPage('home')" class="navigation__list__item">Home</li>
         <li [class.selected]="isSelected('inventory')" (click)="selectPage('inventory')" class="navigation__list__item">Inventory</li>

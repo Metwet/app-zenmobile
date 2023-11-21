@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'shared/models/user.model';
 import { HttpClient } from '@angular/common/http';
 import { ProfileService } from 'shared';
+import { AuthService } from 'core/services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,11 +13,24 @@ import { ProfileService } from 'shared';
 export class HeaderComponent implements OnInit {
 
   currentUser!: User;
+  currentUserId!: number | null;
   message: string | null = null;
-  constructor(private http: HttpClient, private profileService: ProfileService) { }
+
+  constructor(
+    private profileService: ProfileService,
+    private authService: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
-    this._getCurrentUser();
+    // this.currentUserId = this.authService.getStoredUserId();
+    // this._getCurrentUser();
+    this.authService.userId$.subscribe(()=>{
+      console.log('subscribe');
+      
+      this.currentUserId = this.authService.getStoredUserId();
+      this._getCurrentUser();
+    })
 
     this.profileService.editMessage$.subscribe((message)=>{
       this.message = message;
@@ -28,8 +43,17 @@ export class HeaderComponent implements OnInit {
   }
 
   private _getCurrentUser(){
-    this.http.get<User[]>('api/users').subscribe((data) => {
-      this.currentUser = data[0];
-    })
+    if(this.currentUserId){
+      this.profileService.getUserById(this.currentUserId).subscribe((user: User) => {
+        if (user) {
+          this.currentUser = user;
+        }
+      });
+    }   
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/auth']);
   }
 }

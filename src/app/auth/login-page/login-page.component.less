@@ -1,0 +1,35 @@
+@import './../../../styles.less';
+
+.login-page {
+
+    margin: 0 auto;
+    max-width: 500px;
+    margin-top: 200px;
+
+    &__row {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    &__lable {
+        max-width: 100px;
+        width: 100%;
+        float: left
+    }
+
+    &__input {
+        width: 150px;
+    }
+
+    &__error {
+        padding: 4px;
+        border: 1px solid @errorColor;
+        border-radius: 10px;
+        color: @errorColor;
+        width: 300px;
+    }
+
+    &__btn-close {
+        cursor: pointer;
+    }
+}

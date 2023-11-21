@@ -8,8 +8,8 @@ import { User } from 'shared/models/user.model';
 })
 export class ApiService implements InMemoryDbService {
   private users: User[] = [
-    { id: 1, firstName: 'John', lastName: 'Doe', email: 'user@mail.ru', phone: '9856829293', siteUrl: 'https://metwet.ru' },
-    { id: 2, firstName: 'Luke', lastName: 'Skywalker', email: 'starwars@mail.ru', phone: '9856829293' }
+    { id: 1, firstName: 'John', lastName: 'Doe', email: 'user@mail.ru', phone: '9856829293', password: '123', siteUrl: 'https://metwet.ru' },
+    { id: 2, firstName: 'Arthur', lastName: 'Morgan', email: 'user2@mail.ru', phone: '9856829293', password: '123' }
   ];
 
   createDb() {
