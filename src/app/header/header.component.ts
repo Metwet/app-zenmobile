@@ -23,11 +23,7 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // this.currentUserId = this.authService.getStoredUserId();
-    // this._getCurrentUser();
-    this.authService.userId$.subscribe(()=>{
-      console.log('subscribe');
-      
+    this.authService.userId$.subscribe(()=>{  
       this.currentUserId = this.authService.getStoredUserId();
       this._getCurrentUser();
     })
