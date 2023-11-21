@@ -9,19 +9,23 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { ApiService } from 'api/api.service';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavigationComponent,
-        HeaderComponent
+        HeaderComponent,
+        EditProfileComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         CoreModule,
         HttpClientModule,
-        HttpClientInMemoryWebApiModule.forRoot(ApiService, { delay: 1000 })
+        HttpClientInMemoryWebApiModule.forRoot(ApiService, { delay: 1000 }),
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

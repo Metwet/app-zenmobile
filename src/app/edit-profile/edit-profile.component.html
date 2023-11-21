@@ -1,0 +1,48 @@
+<div class="edit-profile container">
+    <h2>Edit profile</h2>
+    <form class="edit-profile__form" [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="showEditor">
+        <div class="edit-profile__row">
+            <label for="firstName" class="edit-profile__lable">First Name:</label>
+            <input type="text" id="firstName" formControlName="firstName">
+            <div *ngIf="showFirstNameError && profileForm.get('firstName')?.hasError('maxlength')" class="edit-profile__error">
+                Please enter a valid first name: less than 255 characters.
+                <span (click)="closeError('firstName')" class="edit-profile__btn-close">&#10006;</span>
+            </div>
+        </div>
+        <div class="edit-profile__row">
+            <label for="lastName" class="edit-profile__lable">Last Name:</label>
+            <input type="text" id="lastName" formControlName="lastName">
+            <div *ngIf="showLastNameError && profileForm.get('lastName')?.hasError('maxlength')" class="edit-profile__error">
+                Please enter a valid last name: less than 255 characters.
+                <span (click)="closeError('lastName')" class="edit-profile__btn-close">&#10006;</span>
+            </div>
+        </div>
+        <div class="edit-profile__row">
+            <label for="email" class="edit-profile__lable">Email:</label>
+            <input type="text" id="email" formControlName="email" readonly>
+        </div>
+        <div class="edit-profile__row">
+            <label for="phoneNumber" class="edit-profile__lable">Phone Number:</label>
+            +7 <input type="tel" id="phoneNumber" formControlName="phone" class="edit-profile__input">
+            <div *ngIf="showPhoneError && (profileForm.get('phone')?.hasError('pattern') || profileForm.get('phone')?.hasError('maxlength') || profileForm.get('phone')?.hasError('minlength'))" class="edit-profile__error">
+                Please enter a valid phone number: 10 digits.
+                <span (click)="closeError('phone')" class="edit-profile__btn-close">&#10006;</span>
+            </div>
+        </div>
+        <div class="edit-profile__row">
+            <label for="websiteUrl" class="edit-profile__lable">WebSite URL:</label>
+            <input type="url" id="websiteUrl" formControlName="siteUrl">
+            <div *ngIf="showSiteUrlError && profileForm.get('siteUrl')?.hasError('pattern')" class="edit-profile__error">
+                Please enter a valid URL: starting with "http://" or "https://".
+                <span (click)="closeError('siteUrl')" class="edit-profile__btn-close">&#10006;</span>
+            </div>
+        </div>
+        <div class="edit-profile__row">
+            <button type="submit">Save</button>
+            <!-- [disabled]="!profileForm.valid" -->
+        </div>
+    </form>
+    <div class="edit-profile__loading" *ngIf="!showEditor">
+        Loading ...
+    </div>
+</div>

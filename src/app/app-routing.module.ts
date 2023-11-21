@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -8,6 +9,7 @@ const routes: Routes = [
     { path: 'reports', loadChildren: () => import('app/reports/reports.module').then(m => m.ReportsModule) },
     { path: 'billing', loadChildren: () => import('app/billing/billing.module').then(m => m.BillingModule) },
     { path: 'profile', loadChildren: () => import('app/profile/profile.module').then(m => m.ProfileModule) },
+    { path: 'editprofile', component: EditProfileComponent}
 ];
 
 @NgModule({

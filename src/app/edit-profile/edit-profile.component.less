@@ -1,0 +1,33 @@
+@import './../../styles.less';
+
+.edit-profile {
+
+    &__row {
+        position: relative;
+        margin-bottom: 10px;
+    }
+
+    &__lable {
+        max-width: 100px;
+        width: 100%;
+        float: left
+    }
+
+    &__input {
+        width: 150px;
+    }
+
+    &__error {
+        position: absolute;
+        top: 0;
+        left: 280px;
+        padding: 4px;
+        border: 1px solid @errorColor;
+        border-radius: 10px;
+        color: @errorColor;
+    }
+
+    &__btn-close {
+        cursor: pointer;
+    }
+}
